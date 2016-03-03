@@ -1,13 +1,30 @@
 body {
      font-family: Oswald;
-     color: red;
+     color: brown;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0px;
+    margin: 0px;
+    padding: 10px;
+}
+
+.panel {
+    padding: 10px;
+}
+
+.dark {
+    background: brown;
+    color: white;
 }
 
 #content {
     max-width: 500px;
-    margin-left: 100px;
+    margin: 0px auto;
 }
 
 .text-field {
     width: 100%;
+    font-family: Oswald;
 }
