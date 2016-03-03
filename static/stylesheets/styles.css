@@ -1,0 +1,13 @@
+body {
+     font-family: Oswald;
+     color: red;
+}
+
+#content {
+    max-width: 500px;
+    margin-left: 100px;
+}
+
+.text-field {
+    width: 100%;
+}
