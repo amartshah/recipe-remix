@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from modify import modify_recipe
-from parser import extract_recipe
+from parser import Parser
 
 
 app = Flask(__name__)
@@ -13,7 +13,9 @@ def home():
 def parse_this_url():
     """App receives the url of the recipe in the POST
     params, scrapes/parses the recipe, then """
-    recipe = extract_recipe(url)
+    parser = Parser.new(url)
+    # return stuff that the frontent needs to display the recipe
+    # this 'stuff' will consist of attributes of the parser object
 
 @app.route("api/parse", methods=['POST'])
 def mash_up_like_this():
