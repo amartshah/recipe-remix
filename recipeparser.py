@@ -8,11 +8,11 @@ from nltk.tokenize import RegexpTokenizer
 url= "http://allrecipes.com/recipe/246350/easy-cloud-bread/"
 
 def parse_raw(url):
-
+    
     resp = urllib2.urlopen(url)
     html = resp.read();
     parsed_html = BeautifulSoup(html, "lxml")
-
+    
     return parsed_html
 
 def parseHtml(url):
@@ -22,7 +22,7 @@ def parseHtml(url):
     directions = getDirections(parsed_html)
     preptime = getPrep(parsed_html)
     cooktime = getCook(parsed_html)
-    #print {"Name" : name, "Ingredients" : ingredients, "Directions" : directions, "Prep Time" : preptime, "Cook Time" : cooktime}
+    print {"Name" : name, "Ingredients" : ingredients, "Directions" : directions, "Prep Time" : preptime, "Cook Time" : cooktime}
     return {"Name" : name, "Ingredients" : ingredients, "Directions" : directions, "Prep Time" : preptime, "Cook Time" : cooktime}
 
 def getIngredients(html):
@@ -31,26 +31,29 @@ def getIngredients(html):
     ingredient_lis1 = content.findAll('li')
     ingredient_lis2 = content1.findAll('li')
     ingredient_lis = ingredient_lis1 + ingredient_lis2
-
+    
     ingredients = []
     for ingredient in ingredient_lis:
         ingredient_text = ingredient.find('span').text;
         ingredients.append(ingredient_text)
-
+    ingredients.pop()
     #print ingredients
     return ingredients
-    
+
 def getDirections(html):
     content = html.body.find('div', attrs={'class':'directions--section__steps'})
     #print content
     direction_lis = content.findAll('li')
     #print instruction_lis
-
+    
     directions = []
     for direction in direction_lis:
         direction_text = direction.find('span').text;
         directions.append(direction_text)
-
+    for x in range(0,4):
+        directions.pop(0)
+        x = x + 1
+    directions.pop()
     #print directions
     return directions
 
@@ -61,7 +64,7 @@ def getName(html):
     #print name_text
     return name_text
 
-    
+
 def getPrep(html):
     content = html.body.findAll('span', attrs={'class':'prepTime__item--time'})
     prep_text = content[0].text
