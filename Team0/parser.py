@@ -5,6 +5,9 @@ class Parser():
     def __init__(self, url):
         parse_html(url)
 
+    def __package__(self):
+        return self.__name__
+
     def parse_html(self, url):
         parsed = parseHtml(url)
         self.ingredients = parsed["ingredients"]
@@ -24,7 +27,8 @@ class Parser():
         if self.methods == []:
             for step in reversed(self.steps):
                 self.methods += [m for m in METHODS if m in self.name.lower()]
-                break if self.methods != [] # depends if too many methods is a problem
+                if self.methods != []: # depends if too many methods is a problem
+                    break
 
     def fully_parsed(self):
         pass

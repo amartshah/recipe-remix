@@ -1,6 +1,6 @@
 from flask import Flask, render_template
-from modify import modify_recipe
-from parser import Parser
+from Team0.modify import modify_recipe
+from Team0.parser import Parser
 
 
 app = Flask(__name__)
@@ -9,7 +9,7 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-@app.route("api/parse", methods=['POST'])
+@app.route("/api/parse", methods=['POST'])
 def parse_this_url():
     """App receives the url of the recipe in the POST
     params, scrapes/parses the recipe, then """
@@ -17,7 +17,7 @@ def parse_this_url():
     # return stuff that the frontent needs to display the recipe
     # this 'stuff' will consist of attributes of the parser object
 
-@app.route("api/parse", methods=['POST'])
+@app.route("/api/parse", methods=['POST'])
 def mash_up_like_this():
     """This will send the JSON recipe, along with the
     user's selection of bbhow the recipe will be modified.
