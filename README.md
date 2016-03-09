@@ -13,3 +13,9 @@ put javascript in static/js/, css in static/stylesheets/, html in templates/, an
 put all python files in Team0/
 
 ## Things we need to do
+
+Internationalized - East Asian, Mediterranean
+
+Vegetarian -
+
+Low Sodium -
