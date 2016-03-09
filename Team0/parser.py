@@ -4,13 +4,14 @@ from tools import toolFinder
 
 class Parser():
     def __init__(self, url):
-        parse_html(url)
+        self.url = url
+        parse_html()
 
     # def __package__(self):
     #     return self.__name__
 
-    def parse_html(self, url):
-        parsed = parseHtml(url)
+    def parse_html(self):
+        parsed = parseHtml(self.url)
         self.ingredients = parsed["ingredients"]
         self.steps = parsed["directions"]
         self.cook_time = parsed["cook time"]
@@ -36,6 +37,7 @@ class Parser():
     def fully_parsed(self):
         if not self.full_recipe:
             self.full_recipe = {
+                "url": self.url,
                 "ingredients": self.separate_ingredients,
                 "primary cooking method": self.primary_cooking_method(),
                 "cookings methods": self.cooking_methods(),
