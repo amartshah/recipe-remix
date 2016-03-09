@@ -1,8 +1,10 @@
 from parser import Parser
 
 class Transformer:
-    def __init__(self, recipe):
-        self.recipe = recipe
+    def __init__(self, recipe, directions):
+        self.recipe = recipe # see Recipes folder for format
+        self.directions = directions
+        # ["Stir the butter and flour together in a bowl", "cook it for 15 minutes", "etc"]
 
     def change_style(self, type):
         # Collin
