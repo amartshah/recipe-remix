@@ -26,7 +26,6 @@ def toolFinder(instructions):
             if t.lower() == f.lower(): # ignoring case
                 output.append(t)
     output = removeDup(output)
-    print output
     return output
 
 
@@ -34,8 +33,3 @@ def removeDup(seq): # helper function to remove duplicates from list
     seen = set()
     seen_add = seen.add
     return [x for x in seq if not (x in seen or seen_add(x))]
-
-
-
-
-toolFinder(test)
