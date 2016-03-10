@@ -2,6 +2,10 @@
 
 `sudo pip install flask`
 
+## Autograder
+
+`python autograder.py 0`
+
 ## Server
 
 run with `python server.py`

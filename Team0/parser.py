@@ -28,6 +28,8 @@ class Parser():
 
     def primary_cooking_method(self):
         pass
+        return ""
+
     def cooking_methods(self):
         self.methods = [m for m in METHODS if m in self.name.lower()]
         if self.methods == []:
