@@ -6,13 +6,17 @@ import re
 
 test = ['2/3 large eggs, evenly separated', '5 1/4 teaspoon cream of tartar', '2 ounces cream cheese, very soft', '1 tablespoon white sugar', '1 dash hot pepper sauce (such as Frank\'s RedHot), or to taste']
 measurements = ['teaspoon', 'cup', 'tablespoon', 'pound', 'ounce', 'liter', 'gallon', 'quart', 'pint', 'milliliter', 'pinch', 'handful', "dash", 'to taste']
-
 def remove_parens(st):
     #parens = re.compile(r'"([A-Za-z0-9_\./\\-]*)"')
     return re.sub(r'\s?\(.*?\)', '', st)
 
 def find_name(st):
-    start = re.split(r',',st)[0];
+    noMeas = st
+    for meas in measurements:
+        match = re.search(r''+meas+'s|'+meas+'', st);
+        if match is not None:
+            noMeas = re.sub(r'\s*'+match.group()+'', '', st)
+    start = re.split(r',',noMeas)[0];
     name = re.split(r'\s', start)[-1];
     #print name;
     return name;
@@ -38,14 +42,14 @@ def find_quant(st):
         else:
             return int(num)
     else:
-        return None
+        return 0
 
 def find_measurement(st):
     for meas in measurements:
-        match = re.search(r''+meas+'+?', st);
+        match = re.search(r''+meas+'s|'+meas+'', st);
         if match is not None:
             #print match.group()
-            return meas
+            return match.group()
     return "discrete"
 
 def find_descriptor(st, name, meas):
@@ -55,22 +59,32 @@ def find_descriptor(st, name, meas):
     #print middle
     desc = re.split(r'[0-9]\s', middle)[-1];
     #print desc
-    if desc[0] is ' ':
-        desc = desc[1:]
-    if desc[-1] is ' ':
-        size = len(desc)-1
-        desc = desc[:size]
+    if len(desc) > 0:
+        if desc[0] is ' ':
+            desc = desc[1:]
+    if len(desc) > 0:
+        if desc[-1] is ' ':
+            size = len(desc)-1
+            desc = desc[:size]
     #print desc
-    return desc      
+    if len(desc) > 0:
+        return desc
+    else:
+        return []
 
 def find_prep(st):
-    lastW = re.split(r'\s',st)[-1];
+    words = re.split(r'\s',st)
+    lastW = words[-1];
     match = re.match(r'.*ed$', lastW)
     if match is not None:
         #print match.group()
         return match.group()
     else:
-        return None  
+        for word in words:
+             match = re.match(r'.*ed$', word)
+             if match is not None:
+                return match.group()
+        return []
 
 def find_prep_descriptor(st):
     words = re.split(r'\s',st);
@@ -80,7 +94,7 @@ def find_prep_descriptor(st):
         #print match.group()
         return match.group()
     else:
-        return None           
+        return []          
 
 def findIngredients(ingList):
     parsedIngs = []

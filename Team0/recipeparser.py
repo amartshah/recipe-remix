@@ -33,6 +33,7 @@ def getIngredients(html):
     ingredients = []
     for ingredient in ingredient_lis:
         ingredient_text = ingredient.find('span').text;
+        ingredient_text = ingredient_text.encode('ascii', 'ignore');
         ingredients.append(ingredient_text)
     ingredients.pop()
     return ingredients
