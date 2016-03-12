@@ -97,7 +97,7 @@ def lowFat(recipe):
         for c in currIngredient:
             for d in dairy:
                 if c in d:
-                    lowFatVersion = "low fat " + c
+                    lowFatVersion = "fat free " + c
                     newRecipe["ingredients"][ingredIndex]["name"] = [lowFatVersion]
         ingredIndex = ingredIndex + 1
     method = oldRecipe["primary cooking method"] # change primary cooking method if it is high fried/pan fried
@@ -107,14 +107,47 @@ def lowFat(recipe):
     print newRecipe
     return newRecipe
             
+
+# pescetarian checks for both like and hearty meats and then replaces with a more suitably hearty fish type. Also
+# checks for meats that may be used more for flavor or to compliment, and replaces those as well
+
+lightMeats = ['chicken', 'chicken breast', 'chicken thigh', 'pork', 'pork chop']
+heartyMeats = ['roast', 'salami', 'burger', 'veal', 'venison','beef', 'steak']
+complimentaryMeats = ['bacon', 'ham', 'proscuitto']
+        
     
 def pescetarian(recipe):
     oldRecipe = recipe
     newRecipe = recipe
-    
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for light meats
+        currIngredient = i["name"] # list of strings
+        for c in currIngredient:
+            for d in lightMeats:
+                if c in d:
+                    pesc1 = "tilapia filet"
+                    newRecipe["ingredients"][ingredIndex]["name"] = [pesc1]
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for light meats
+        currIngredient = i["name"] # list of strings
+        for c in currIngredient:
+            for d in heartyMeats:
+                if c in d:
+                    pesc2 = "ahi tuna steak"
+                    newRecipe["ingredients"][ingredIndex]["name"] = [pesc2]
+        ingredIndex = ingredIndex + 1 
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for light meats
+        currIngredient = i["name"] # list of strings
+        for c in currIngredient:
+            for d in complimentaryMeats:
+                if c in d:
+                    pesc3 = "pulled albacore tuna"
+                    newRecipe["ingredients"][ingredIndex]["name"] = [pesc3]
+        ingredIndex = ingredIndex + 1
+    print newRecipe
+    return newRecipe
 
 
-
-
-
-lowFat(testRecipe)
+#pescetarian(testRecipe)
