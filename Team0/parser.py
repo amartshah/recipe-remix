@@ -2,13 +2,14 @@ from recipeparser import parseHtml
 from cooking_methods import METHODS
 from tools import toolFinder
 from ingredients import findIngredients
+from extract_cooking_methods import extract_cooking_methods
+
 
 class Parser:
     def __init__(self, url):
         self.full_recipe = None
         self.url = url
         self.parse_html()
-        self.get_cooking_methods()
 
     def __package__(self):
         return self.__name__
@@ -27,32 +28,31 @@ class Parser:
     def get_tools(self):
         return toolFinder(self.steps)
 
-    def get_cooking_methods(self):
-        self.cooking_methods = []
-        self.primary_cooking_method = None
-
+    def get_primary_cooking_method(self):
         for m in reversed(METHODS):
             if m in self.name.lower():
-                self.primary_cooking_method = m
-            self.cooking_methods.append(m)
-
+                return m
+        if 'preheat' in self.steps[0].lower():
+            return 'bake'
         for step in reversed(self.steps):
             for m in METHODS:
                 if m in step.lower():
-                    self.cooking_methods.append(m)
-                    if self.primary_cooking_method == None:
-                        self.primary_cooking_method = m
+                    return m
+        return 'mix'
+
+    def get_cooking_methods(self):
+        return extract_cooking_methods(self.steps, self.name)
 
     def fully_parsed(self):
         if self.full_recipe == None:
             self.full_recipe = {
                 "url": self.url,
                 "ingredients": self.separate_ingredients(),
-                "primary cooking method": self.primary_cooking_method,
-                "cooking methods": self.cooking_methods,
+                "primary cooking method": self.get_primary_cooking_method(),
+                "cooking methods": self.get_cooking_methods(),
                 "cooking tools": self.get_tools()
             }
-        print ">>>>>>>>>>>>>>>>>>>>>>"
-        print self.full_recipe
-        print "<<<<<<<<<<<<<<<<<<<<<<"
+        print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        print self.full_recipe["primary cooking method"]
+        print self.full_recipe["cooking methods"]
         return self.full_recipe
