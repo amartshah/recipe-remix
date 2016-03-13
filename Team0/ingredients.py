@@ -113,4 +113,4 @@ def findIngredients(ingList):
     print parsedIngs
     return parsedIngs
 
-findIngredients(test)
+#findIngredients(test)

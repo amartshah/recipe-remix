@@ -50,7 +50,7 @@ def getDirections(html):
         directions.pop(0)
         x = x + 1
     directions.pop()
-    print directions
+    #print directions
     return directions
 
 
@@ -70,4 +70,4 @@ def getCook(html):
     cook_text = content[1].text
     return cook_text
 
-parseHtml(url)
+#parseHtml(url)
