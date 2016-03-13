@@ -52,7 +52,4 @@ class Parser:
                 "cooking methods": self.get_cooking_methods(),
                 "cooking tools": self.get_tools()
             }
-        print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        print self.full_recipe["primary cooking method"]
-        print self.full_recipe["cooking methods"]
         return self.full_recipe

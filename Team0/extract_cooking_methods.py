@@ -12,7 +12,7 @@ def extract_cooking_methods(steps, title):
 
     methods = list(set(methods))
     discard = ['be', 'use']
-    return [m for m in methods if m not in discard]
+    return [m for m in methods if m not in discard or len(m) < 3]
 
 
 
