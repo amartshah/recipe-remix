@@ -50,6 +50,7 @@ def getDirections(html):
         directions.pop(0)
         x = x + 1
     directions.pop()
+    print directions
     return directions
 
 
