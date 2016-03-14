@@ -1,3 +1,4 @@
+
 {
     "url": "http://allrecipes.com/Recipe/Baked-Lemon-Chicken-with-Mushroom-Sauce/",
     "ingredients": [{
@@ -10,7 +11,7 @@
             "max": 3
         },
         {
-            "name": ["chicken","chicken breasts", "chicken breast halves", "boneless chicken breast halves","boneless chicken", "skinless chicken breasts", "skinless, boneless chicken breast halves"],
+            "name": ["chicken","chicken breasts", "chicken breast halves", "boneless chicken breast halves","boneless chicken", "skinless chicken breasts", "skinless, boneless chicken breast halves", "chicken breast"],
             "quantity": [6],
             "measurement": ["breast halves", "unit", "units","discrete"],
             "descriptor": ["boneless", "skinless", "breast halves","skinless, boneless"],
