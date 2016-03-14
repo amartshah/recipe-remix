@@ -4,88 +4,46 @@ import operator
 import sys
 import re
 
-testRecipe = {
-    "url": "http://allrecipes.com/Recipe/Easy-Garlic-Broiled-Chicken/",
-    "ingredients": [{
-            "name": ["butter"],
-            "quantity": [0.5],
-            "measurement": ["cup", "cups"],
-            "descriptor": [],
-            "preparation": [],
-            "prep-description": [],
-            "max": 3
-        },
-        {
-            "name": ["garlic", "minced garlic"],
-            "quantity": [3],
-            "measurement": ["tablespoons","tablespoon"],
-            "descriptor": [],
-            "preparation": ["minced"],
-            "prep-description": [],
-            "max": 4
-        },
-        {
-            "name": ["soy sauce"],
-            "quantity": [3],
-            "measurement": ["tablespoons", "tablespoon"],
-            "descriptor": [],
-            "preparation": [],
-            "prep-description": [],
-            "max": 3
-        },
-        {
-            "name": ["pepper", "black pepper"],
-            "quantity": [0.25],
-            "measurement": ["teaspoon", "teaspoons"],
-            "descriptor": ["black"],
-            "preparation": [],
-            "prep-description": [],
-            "max": 4
-        },
-        {
-            "name": ["parsley", "dried parsley"],
-            "quantity": [1],
-            "measurement": ["tablespoon", "tablespoons"],
-            "descriptor": ["dried"],
-            "preparation": ["dried"],
-            "prep-description": [],
-            "max": 4
-        },
-        {
-            "name": ["chicken","chicken thighs","boneless chicken thighs","boneless chicken","boneless chicken thighs, with skin"],
-            "quantity": [6],
-            "measurement": ["thighs", "unit", "units","discrete"],
-            "descriptor": ["boneless", "with skin", "thighs","boneless thighs, with skin"],
-            "preparation": ["boneless","with skin"],
-            "prep-description": [],
-            "max": 5
-        },
-        {
-            "name": ["parsley", "dried parsley","dried parsley, to taste"],
-            "quantity": [0,1,"none"],
-            "measurement": ["to taste", "taste"],
-            "descriptor": ["dried","dried, to taste"],
-            "preparation": ["dried"],
-            "prep-description": [],
-            "max": 4
-        }
-    ],
-    "max": {
-        "ingredients": 27,
-        "primary cooking method": 1,
-        "cooking tools": 6,
-        "cooking methods": 11
-    },
-    "primary cooking method": "fry",
-    "cooking methods":["grease","greasing","preheat","preheating","mix","mixing","melted","melting","arrange","arranging","microwave","microwaving","coat","coating","basting","broil","broiling","turning","sprinkle","sprinkling"],
-    "cooking tools": ["oven","knife", "baking pan", "microwave safe bowl", "microwave", "baster"]
-}
+##testRecipe = {
+##     "ingredients":[{
+##                    "name": "chicken breast",
+## 		    "quantity":	1,
+##                    "measurement": "pinch",
+## 		    "descriptor": "unsalted",
+## 		    "preparation": "",
+##                    "prep-description":"none"
+## 		    },
+##                    {
+## 		    "name": "olive oil",
+## 		    "quantity":	0.75,
+## 		    "measurement": "teaspoon",
+##                    "descriptor": "extra-virgin",
+## 		    "preparation": "none",
+##                    "prep-description":	"none"
+## 		    },
+##                    {
+## 		    "name": "parsley",
+## 		    "quantity":	1,
+## 		    "measurement":"cup",
+## 		    "descriptor": "fresh",
+## 		    "preparation": "chopped",
+##                     "prep-description": "finely"
+##                    }
+##        ],
+## 	"primary cooking method": "boil",
+## 	"cooking methods": ["chop", "stir", "boil", "simmer", "grate", "bake"],
+## 	"cooking tools": ["knife", "grater", "dutch oven"],
+## 	}
 
 
-dairy = ['milk',  'butter', 'cream', 'cheese']
+
+dairy = ['milk','butter', 'cream', 'cheese', 'ricotta', 'mozzarella', 'sour cream', 'cream cheese', 'cottage cheese']
 badMethods = ['fry', 'fried', 'sautee', 'pan-fry']
-
-# lowFat(recipe) checks for high-fat dairy ingredients and replaces with low fat, and checks for unhealthy cooking methods
+pastaSauces = ['alfredo', 'alfredo sauce','cheese sauce', 'white sauce']
+badMeats = ['ground beed','chicken', 'turkey', 'hot dog', 'coldcuts', 'salami', 'pork', 'chorizo', 'anduille']
+dressings = ['caesar dressing', 'ranch dressing', 'italian dressing', 'russian dressing', 'caesar', 'ranch', 'french dressing']
+soups = ['canned soup', 'cream of tomato soup', 'cream of mushroom soup', 'cream of tomato', 'cream of mushroom']
+# lowFat(recipe) checks for high-fat ingredients and replaces with low fat, and checks for unhealthy cooking methods
 # and replaces with baking
 
 def lowFat(recipe):
@@ -93,61 +51,202 @@ def lowFat(recipe):
     newRecipe = recipe
     ingredIndex = 0
     for i in oldRecipe["ingredients"]: # check for high fat dairy ingredients
-        currIngredient = i["name"] # list of strings
-        for c in currIngredient:
-            for d in dairy:
-                if c in d:
-                    lowFatVersion = "fat free " + c
-                    newRecipe["ingredients"][ingredIndex]["name"] = [lowFatVersion]
+        currIngredient = i["name"] 
+        for d in dairy:
+            if currIngredient in d:
+                lowFatVersion = "fat free " + currIngredient
+                newRecipe["ingredients"][ingredIndex]["name"] = lowFatVersion
         ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for pasta sauce
+        currIngredient = i["name"] 
+        for d in pastaSauces:
+            if currIngredient in d:
+                lowFatVersion = "marinara sauce"
+                newRecipe["ingredients"][ingredIndex]["name"] = lowFatVersion
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for granola
+        currIngredient = i["name"] 
+        if "granola" in currIngredient:
+            lowFatVersion = "bran flakes"
+            newRecipe["ingredients"][ingredIndex]["name"] = lowFatVersion
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for ground beef
+        currIngredient = i["name"] 
+        if "ground beef" in currIngredient:
+                newRecipe["ingredients"][ingredIndex]["name"] = "ground turkey"
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for meats
+        currIngredient = i["name"] 
+        for d in badMeats:
+            if currIngredient in d:
+                lowFatVersion = "reduced fat " + currIngredient
+                newRecipe["ingredients"][ingredIndex]["name"] = lowFatVersion
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for dressings
+        currIngredient = i["name"] 
+        for d in dressings:
+            if currIngredient in d:
+                lowFatVersion = "reduced fat " + currIngredient 
+                newRecipe["ingredients"][ingredIndex]["name"] = lowFatVersion
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for soups
+        currIngredient = i["name"] 
+        for d in soups:
+            if currIngredient in d:
+                lowFatVersion = "broth-based soup"
+                newRecipe["ingredients"][ingredIndex]["name"] = lowFatVersion
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
     method = oldRecipe["primary cooking method"] # change primary cooking method if it is high fried/pan fried
     for m in badMethods:
         if m == method:
             newRecipe["primary cooking method"] = "bake"
     print newRecipe
     return newRecipe
+
+
+healthyMethods = ['bake', 'baked', 'boil', 'boiled', 'blanched', 'blanch', 'braise', 'braised', 'roast', 'roasted']
+leanMeats = ['turkey', 'turkey breast', 'chicken', 'lean']
+# hiFat(recipe) checks for low fat ingredients and replaces with whole fat, and checks for healthy cooking methods
+# and replaces with frying of some sort
+def hiFat(recipe):
+    oldRecipe = recipe
+    newRecipe = recipe
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for reduced fat/skim dairy products
+        currIngredient = i["name"] 
+        if "low fat" in currIngredient or "skim" in currIngredient or "reduced fat" in currIngredient:
+            newRecipe["ingredients"][ingredIndex]["name"] = "whole fat" + currIngredient
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for pasta sauce
+        currIngredient = i["name"] 
+        if "marinara" in currIngredient:
+            newRecipe["ingredients"][ingredIndex]["name"] = "alfredo sauce"
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for meats
+        currIngredient = i["name"] 
+        for d in leanMeats:
+            if currIngredient in d:
+                newRecipe["ingredients"][ingredIndex]["name"] = "chicken thigh with skin"
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for lean ground meat
+        currIngredient = i["name"] 
+        if "lean" in currIngredient and "ground" in currIngredient:
+                newRecipe["ingredients"][ingredIndex]["name"] = "80% ground beef"
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for dressings
+        currIngredient = i["name"] 
+        if "low fat" in currIngredient and "dressing" in currIngredient:
+                newRecipe["ingredients"][ingredIndex]["name"] = "regular" + currIngredient
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    method = oldRecipe["primary cooking method"] # change primary cooking method if it is high fried/pan fried
+    for m in healthyMethods:
+        if method in m:
+            newRecipe["primary cooking method"] = "fry in duck fat"
+    print newRecipe
+    return newRecipe
+
+
             
 
-# pescetarian checks for both like and hearty meats and then replaces with a more suitably hearty fish type. Also
+# toPescetarian checks for both like and hearty meats and then replaces with a more suitably hearty fish type. Also
 # checks for meats that may be used more for flavor or to compliment, and replaces those as well
-
 lightMeats = ['chicken', 'chicken breast', 'chicken thigh', 'pork', 'pork chop']
 heartyMeats = ['roast', 'salami', 'burger', 'veal', 'venison','beef', 'steak']
 complimentaryMeats = ['bacon', 'ham', 'proscuitto']
-        
-    
-def pescetarian(recipe):
+def toPescetarian(recipe):
     oldRecipe = recipe
     newRecipe = recipe
     ingredIndex = 0
     for i in oldRecipe["ingredients"]: # check for light meats
-        currIngredient = i["name"] # list of strings
-        for c in currIngredient:
-            for d in lightMeats:
-                if c in d:
-                    pesc1 = "tilapia filet"
-                    newRecipe["ingredients"][ingredIndex]["name"] = [pesc1]
+        currIngredient = i["name"]
+        for d in lightMeats:
+            if currIngredient in d:
+                newRecipe["ingredients"][ingredIndex]["name"] = "tilapia filet"
         ingredIndex = ingredIndex + 1
     ingredIndex = 0
     for i in oldRecipe["ingredients"]: # check for light meats
-        currIngredient = i["name"] # list of strings
-        for c in currIngredient:
-            for d in heartyMeats:
-                if c in d:
-                    pesc2 = "ahi tuna steak"
-                    newRecipe["ingredients"][ingredIndex]["name"] = [pesc2]
+        currIngredient = i["name"] 
+        for d in heartyMeats:
+            if currIngredient in d:
+                newRecipe["ingredients"][ingredIndex]["name"] = "ahi tuna steak"
         ingredIndex = ingredIndex + 1 
     ingredIndex = 0
     for i in oldRecipe["ingredients"]: # check for light meats
-        currIngredient = i["name"] # list of strings
-        for c in currIngredient:
-            for d in complimentaryMeats:
-                if c in d:
-                    pesc3 = "pulled albacore tuna"
-                    newRecipe["ingredients"][ingredIndex]["name"] = [pesc3]
+        currIngredient = i["name"] 
+        for d in complimentaryMeats:
+            if currIngredient in d:
+                newRecipe["ingredients"][ingredIndex]["name"] = "canned albacore tuna"
         ingredIndex = ingredIndex + 1
     print newRecipe
     return newRecipe
 
 
-#pescetarian(testRecipe)
+
+
+
+# fromPescetarian replaces all fish ingredients with meat/poultry alternatives
+otherFish = ['grouper', 'trout', 'whitefish', 'sea bass', 'flounder', 'roughey', 'mahi mahi', 'mahi-mahi']
+flavorFish = ['anchovy', 'anchovies','sardines', 'sardine', 'roe', 'caviar', 'smoked salmon']
+def fromPescetarian(recipe):
+    oldRecipe = recipe
+    newRecipe = recipe
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for tilapia
+        currIngredient = i["name"] 
+        if "tilapia" in currIngredient:
+            newRecipe["ingredients"][ingredIndex]["name"] = "chicken breast"
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for salmon
+        currIngredient = i["name"] 
+        if "salmon" in currIngredient and "smoked salmon" not in currIngredient:
+            newRecipe["ingredients"][ingredIndex]["name"] = "pork loin"
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for tuna
+        currIngredient = i["name"] 
+        if "tuna" in currIngredient:
+            newRecipe["ingredients"][ingredIndex]["name"] = "sirloin steak"
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for cod
+        currIngredient = i["name"] 
+        if "cod" in currIngredient:
+            newRecipe["ingredients"][ingredIndex]["name"] = "chicken cutlet"
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for other fish
+        currIngredient = i["name"] 
+        for d in otherFish:
+            if d in currIngredient:
+                newRecipe["ingredients"][ingredIndex]["name"] = "chicken breast"
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0
+    for i in oldRecipe["ingredients"]: # check for flavoring fish
+        currIngredient = i["name"] 
+        for d in flavorFish:
+            if d in currIngredient:
+                newRecipe["ingredients"][ingredIndex]["name"] = "prosciutto"
+        ingredIndex = ingredIndex + 1
+    ingredIndex = 0    
+    print newRecipe
+    return newRecipe
+
+
+##########################################    
+#fromPescetarian(testRecipe)
+#hiFat(testRecipe)
+#lowFat(testRecipe)
+#toPescetarian(testRecipe)
