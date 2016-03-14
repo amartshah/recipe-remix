@@ -26,7 +26,7 @@ class Parser:
         return findIngredients(self.ingredients)
 
     def get_tools(self):
-        return toolFinder(self.steps)
+        return toolFinder(self.steps, self.ingredients)
 
     def get_primary_cooking_method(self):
         for m in reversed(METHODS):
