@@ -1,17 +1,22 @@
 body {
      font-family: Oswald;
      color: brown;
+     margin: 0 0 100px 0;
 }
 
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     margin: 0px;
     padding: 10px;
+    z-index: 2;
+    background: white;
+    width: 100%;
 }
 
 .panel {
     padding: 10px;
+    overflow: hidden;
 }
 
 .dark {

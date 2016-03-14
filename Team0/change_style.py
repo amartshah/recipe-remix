@@ -1,14 +1,13 @@
 from style_transformations import *
 import copy
 
-
 def change_style(transformations, ingredients, steps):
     new_ingredients_list = []
     for i in ingredients:
         new_ingredient = transformations.get(i['name'])
         if new_ingredient:
             formatted_ingredient = None
-            if isinstance(list, new_ingredient):
+            if isinstance(new_ingredient, list):
                 # measurement conversion
                 formatted_ingredient = copy.deepcopy(i)
                 formatted_ingredient['name'] = new_ingredient[0]
@@ -19,7 +18,7 @@ def change_style(transformations, ingredients, steps):
                     formatted_ingredient['prep-description'] = 'none'
             else:
                 # measurement conversion
-                measurement_mapping = new_ingredient.get(i['measurement'))
+                measurement_mapping = new_ingredient.get(i['measurement'])
                 if measurement_mapping:
                     formatted_ingredient= {
                         'name': measurement_mapping[2],

@@ -1,6 +1,6 @@
 to_asian = {
     'noodles': {
-        'cup': [1, 'cup', 'rice']
+        'cup': [1, 'cup', 'rice'],
         'other': 'rice noodles'
     },
     'salt': {
@@ -30,6 +30,7 @@ to_asian = {
 
     'olive oil': ['sesame oil', False],
     'vegetable oil': ['sesame oil', False],
+    'oil': ['sesame oil', False],
 
     'brussels sprouts': ['bok choy', True],
     'potatoes': ['drained 5 oz. can of water chestnuts', False],
@@ -48,7 +49,8 @@ to_asian = {
         'tablespoon': [1, 'teaspoon', 'ground ginger']
     },
     'horseradish': ['minced ginger', False],
-    'pickles': ['pickled ginger', False]
+    'pickles': ['pickled ginger', False],
+    'rosemary': ['basil', True]
 }
 
 # to_mex = {

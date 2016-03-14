@@ -1,14 +1,22 @@
-from parser import Parser
+from change_style import change_style_to
+import copy
 
 class Transformer:
-    def __init__(self, recipe, directions):
+    def __init__(self, recipe, steps):
         self.recipe = recipe # see Recipes folder for format
-        self.directions = directions
+        self.steps = steps
         # ["Stir the butter and flour together in a bowl", "cook it for 15 minutes", "etc"]
 
-    def change_style(self, type):
+    # !!!! READ THIS !!!!
+    # All the below methods need to transform and return transformations as tuples:
+    # return (recipe, steps)
+
+    def change_style(self, style):
         # Collin
-        pass
+        new_ingredients, new_steps = change_style_to(style, self.recipe['ingredients'], self.steps)
+        new_recipe = copy.deepcopy(self.recipe)
+        new_recipe['ingredients'] = new_ingredients
+        return (new_recipe, new_steps)
 
     def low_cal(self):
         # Amar
@@ -33,3 +41,23 @@ class Transformer:
     def vegan(self):
         # Liam
         pass
+
+    # !!!! READ THIS !!!!
+    # All the above methods need to transform and return transformations as tuples:
+    # return (recipe, steps)
+
+    def transform(self, transformation):
+        if transformation == 'asian':
+            return self.change_style('asian')
+        elif transformation == 'mexican':
+            return self.change_style('mexican')
+        elif transformation == 'low_sodium':
+            return self.low_sodium()
+        elif transformation == 'low_fat':
+            return self.low_fat()
+        elif transformation == 'pescatarian':
+            return self.pescatarian()
+        elif transformation == 'vegetarian':
+            return self.vegetarian()
+        elif transformation == 'vegan':
+            return self.vegan()

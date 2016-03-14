@@ -11,9 +11,8 @@ def extract_cooking_methods(steps, title):
         methods += [wordnet_lemmatizer.lemmatize(w, pos='v').encode('ascii', 'ignore') for (w, pos) in step if 'VB' in pos]
 
     methods = list(set(methods))
-    discard = ['be', 'use']
-    return [m for m in methods if m not in discard or len(m) < 3]
-
+    discard = ['be', 'use', 'need', 'should']
+    return [m for m in methods if m not in discard and len(m) > 2]
 
 
 # print extract_cooking_methods(['Season lamb shoulder chops with salt and black pepper.',
