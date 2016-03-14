@@ -22,7 +22,7 @@ class Transformer:
         # Dan
         pass
 
-    def pescetarian(self):
+    def pescatarian(self):
         # Dan
         pass
 

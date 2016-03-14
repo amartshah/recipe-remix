@@ -53,3 +53,8 @@ class Parser:
                 "cooking tools": self.get_tools()
             }
         return self.full_recipe
+
+    def fully_parsed_with_steps(self):
+        d = self.fully_parsed()
+        d['steps'] = self.steps
+        return d

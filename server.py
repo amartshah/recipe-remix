@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 from Team0.parser import Parser
 
 
@@ -12,11 +12,12 @@ def home():
 def parse_this_url():
     """App receives the url of the recipe in the POST
     params, scrapes/parses the recipe, then """
-    parser = Parser(url)
+    parser = Parser(request.form['recipeUrl'])
+    return jsonify(parser.fully_parsed_with_steps())
     # return stuff that the frontent needs to display the recipe
     # this 'stuff' will consist of attributes of the parser object
 
-@app.route("/api/parse", methods=['POST'])
+@app.route("/api/transform", methods=['POST'])
 def mash_up_like_this():
     """This will send the JSON recipe, along with the
     user's selection of bbhow the recipe will be modified.
