@@ -26,6 +26,7 @@ to_asian = {
     },
 
     'worcestershire sauce': ['hoisin sauce', True],
+    'sauce': ['hoisin sauce', False],
 
     'cilantro': ['basil', True],
     'parsley': ['basil', True],
@@ -44,12 +45,13 @@ to_asian = {
 
     'cumin': ['ground ginger', True],
     'paprika': {
-        'teaspoon': [1, 'tablespoon', 'garlic chili sauce']
+        'teaspoon': [1, 'tablespoon', 'garlic chili sauce'],
     },
 
     'oregano': {
         'teaspoon': [.5, 'teaspoon', 'ground ginger'],
-        'tablespoon': [1, 'teaspoon', 'ground ginger']
+        'tablespoon': [1, 'teaspoon', 'ground ginger'],
+        'pinch': [1, 'pinch', 'ground ginger']
     },
     'horseradish': ['minced ginger', False],
     'pickles': ['pickled ginger', False],

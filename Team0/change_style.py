@@ -24,9 +24,9 @@ def change_style(transformations, ingredients, steps):
                         'name': measurement_mapping[2],
                         'quantity': measurement_mapping[0] * i['quantity'],
                         'measurement': measurement_mapping[1],
-                        'descriptor': 'none',
-                        'preparation': 'none',
-                        'prep-description': 'none'
+                        'descriptor': '',
+                        'preparation': '',
+                        'prep-description': ''
                     }
                 if not measurement_mapping and new_ingredient.get('other'):
                     formatted_ingredient = copy.deepcopy(i)

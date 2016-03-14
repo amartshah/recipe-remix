@@ -32,6 +32,12 @@ body {
 .text-field {
     width: 100%;
     font-family: Oswald;
+    height: 40px;
+    font-size: 15px;
+    border-top:none;
+    border-left: none;
+    border-right: none;
+    text-align: center;
 }
 
 button {
@@ -41,8 +47,26 @@ button {
     font-family: Oswald;
     border: none;
     border-radius: 5px;
-    margin: 5px auto 0px auto;
+    margin: 10px auto 0px auto;
     color: white;
+    display: block;
+}
+
+button:hover {
+    background: white;
+    border:solid;
+    border-color:brown;
+    color: brown;
+}
+
+img {
+    display: block;
+    margin: 0px auto;
+}
+
+span.label {
+    font-size: 20px;
+    display: inline;
 }
 
 /* -------------------- Select Box Styles: stackoverflow.com Method */
@@ -58,12 +82,14 @@ select#transform-select {
    background-position: 97% center;
    background-repeat: no-repeat;
    border: 1px solid #AAA;
-   color: #555;
+   color: brown;
    font-size: inherit;
-   margin: 20px;
    overflow: hidden;
    padding: 5px 10px;
    text-overflow: ellipsis;
    white-space: nowrap;
-   width: 300px;
+   width: 250px;
+   position: relative;
+   bottom: 2px;
+   font-family: inherit;
 }

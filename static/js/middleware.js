@@ -2,7 +2,6 @@ var RECIPE = {};
 var STEPS = [];
 
 function displayRecipe(recipe, steps) {
-  // LIAM - change this
   var recipeToDisplay
   var title = recipe.name;
   var titleHTML ='<h2>'+title+'</h2>';
@@ -10,18 +9,15 @@ function displayRecipe(recipe, steps) {
   var ingHTML = '<h3><u>Ingredients:</u></h3>';
   var ingredients = recipe.ingredients;
   ingredients.forEach(function(ing) {
-    //console.log(ing.name)
     if(ing.name){
       var thisHTML = '<p><b>' + ing.descriptor+' '+ing.name + ':</b> '+((ing.quantity != 0) ? ing.quantity : '')+' '+((ing.measurement != 'discrete') ? ing.measurement : '')+' '+ ((ing['prep-descriptor'] != null) ? ing['prep-descriptor'] : '')+ ' '+ing.preparation+'</p>';
       ingHTML += thisHTML;
     }
-    
+
   });
   recipeToDisplay += ingHTML;
 
-  //var methods = recipe['cooking methods'];
   var stepsHTML = '<h3><u>Steps:</u></h3>';
-  //console.log(tools);
   var i = 1;
   steps.forEach(function(s){
       stepsHTML+= '<p>'+i+': '+s+'</p>';
@@ -30,18 +26,18 @@ function displayRecipe(recipe, steps) {
   recipeToDisplay += stepsHTML;
 
   var tools = recipe['cooking tools'];
-  var toolHTML = '<h3><u>Tools:</u></h3><p><b>';
-  //console.log(tools);
+  var toolHTML = '</br><p><b>Tools:</b> ';
+
   tools.forEach(function(t){
     toolHTML+= t+', ';
   });
   toolHTML = toolHTML.substring(0, toolHTML.length - 2);
 
-  recipeToDisplay += toolHTML+'</b></p>';
+  recipeToDisplay += toolHTML+'</p>';
 
   var methods = recipe['cooking methods'];
-  var methodHTML = '<h3><u>Methods:</u></h3><p><b>';
-  //console.log(tools);
+  var methodHTML = '<p><b>Methods:</b> ';
+
   methods.forEach(function(m){
     if (m == recipe['primary cooking method']){
       methodHTML+= m+' (Primary), ';;
@@ -49,15 +45,10 @@ function displayRecipe(recipe, steps) {
     else{
       methodHTML+= m+', ';
     }
-    
+
   });
   methodHTML = methodHTML.substring(0, methodHTML.length - 2);
-  recipeToDisplay += methodHTML + '</p></b>';
-  //console.log(ingHTML)
-  //console.log(ingredients)
-  //recipeToDisplay += '<pre>' + JSON.stringify(recipe, null, 2) + '</pre>';
-  //recipeToDisplay += '<pre>' + JSON.stringify(steps, null, 2) + '</pre>';
-
+  recipeToDisplay += methodHTML + '</p></br>';
 
   return recipeToDisplay;
 }
