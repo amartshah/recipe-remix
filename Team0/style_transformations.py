@@ -55,7 +55,7 @@ to_asian = {
     'pickles': ['pickled ginger', False],
     'rosemary': ['basil', True],
     'sour cream': ['coconut milk', False],
-    'cream': ['coconut milk', False]
+    'cream': ['coconut milk', False],
 }
 
 to_mex = {
@@ -85,12 +85,25 @@ to_mex = {
         'teaspoon': [.5, 'teaspoon', 'salt']
     },
     'olives': ['jalapenos', False],
-
+    'worcestor sauce': ['salsa verde', False],
     # salsa, corn, beans red peppers
 }
 
 to_veggie = {
-    # all meats
+    'pork': ['red peppers', False],
+    'chops': [],
+    'loin': [],
+    'ribs': [],
+
+    'beef': ['black beans', False],
+    'ground beef': ['black beans', False],
+    'meat': ['mushrooms', False],
+
+    'chicken': [],
+    'breasts': [],
+    'chicken breasts': [],
+
+    'tripe': []
 }
 
 to_vegan = {
@@ -99,5 +112,4 @@ to_vegan = {
     'yogurt': [],
     'sour cream': [],
     'cream': []
-
 }

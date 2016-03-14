@@ -1,6 +1,16 @@
 var RECIPE = {};
 var STEPS = [];
 
+function displayRecipe(recipe, steps) {
+  // LIAM - change this
+
+  var recipeToDisplay = '<pre>' + JSON.stringify(recipe, null, 2) + '</pre>';
+  recipeToDisplay += '<pre>' + JSON.stringify(steps, null, 2) + '</pre>';
+
+
+  return recipeToDisplay;
+}
+
 function resetAll() {
   $('#transformed-display').html('');
   $('#transform-actions').html('');
@@ -28,7 +38,7 @@ function transformRecipe() {
     success: function(resp) {
       console.log(resp);
 
-      var recipeToDisplay = '<pre>' + JSON.stringify(resp, null, 2) + '</pre>';
+      var recipeToDisplay = displayRecipe(resp['recipe'], resp['steps']);
 
       $('#transformed-display').html(recipeToDisplay);
       var resetButton = '<button id="reset-button">Reset</button>';
@@ -42,7 +52,6 @@ function transformRecipe() {
 function submitUrl() {
   $('#original-recipe-display').html('<img src="http://designhousegarments.com/images/loading.gif"></img>');
   $('#url-submit').hide();
-
   $.ajax({
     type: "POST",
     url: '/api/parse',
@@ -52,8 +61,7 @@ function submitUrl() {
       RECIPE = resp['recipe'];
       STEPS = resp['steps'];
 
-      var recipeToDisplay = '<pre>' + JSON.stringify(resp['recipe'], null, 2) + '</pre>';
-      recipeToDisplay += '<pre>' + JSON.stringify(resp['steps'], null, 2) + '</pre>';
+      var recipeToDisplay = displayRecipe(resp['recipe'], resp['steps'])
 
       $('#original-recipe-display').html(recipeToDisplay);
       $('#transform-actions').show();
@@ -62,7 +70,6 @@ function submitUrl() {
     }
   });
 }
-
 
 $( document ).ready(function() {
   $('#transform-actions').hide();

@@ -44,13 +44,13 @@ class Transformer:
             return self.change_style('asian')
         elif transformation == 'mexican':
             return self.change_style('mexican')
+        elif transformation == 'vegetarian':
+            return self.change_style('vegetarian')
+        elif transformation == 'vegan':
+            return self.change_style('vegan')
         elif transformation == 'low_sodium':
             return self.low_sodium()
         elif transformation == 'low_fat':
             return self.low_fat()
         elif transformation == 'pescatarian':
             return self.pescatarian()
-        elif transformation == 'vegetarian':
-            return self.change_style('vegetarian')
-        elif transformation == 'vegan':
-            return self.change_style('vegan')
