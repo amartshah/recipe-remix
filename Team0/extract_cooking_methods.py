@@ -5,14 +5,31 @@ def extract_cooking_methods(steps, title):
     steps.append(title)
     tk_steps = [pos_tag(word_tokenize(w.lower())) for w in steps]
 
-    wordnet_lemmatizer = WordNetLemmatizer()
     methods = []
     for step in tk_steps:
-        methods += [wordnet_lemmatizer.lemmatize(w, pos='v').encode('ascii', 'ignore') for (w, pos) in step if 'VB' in pos]
+        # methods += [wordnet_lemmatizer.lemmatize(w, pos='v').encode('ascii', 'ignore') for (w, pos) in step if 'VB' in pos]
+        methods += [w.encode('ascii', 'ignore') for (w, pos) in step if 'VB' in pos]
 
-    methods = list(set(methods))
-    discard = ['be', 'use', 'need', 'should']
-    return [m for m in methods if m not in discard and len(m) > 2]
+    for step in steps:
+        if 'preheat' in step:
+            methods += ['preheat', 'preheating']
+        if 'microwav' in step:
+            methods += ['microwave', 'microwaving']
+        if 'place' in step:
+            methods.append('place')
+        if 'form' in step:
+            methods.append('form')
+        if 'sprinkle' in step:
+            methods.append('sprinkle')
+
+    wordnet_lemmatizer = WordNetLemmatizer()
+    discard = ['be', 'use', 'need', 'should', 'allow', 'pink', 'turn', 'reserve']
+    methods =  [m for m in methods if wordnet_lemmatizer.lemmatize(m, pos='v') not in discard and len(m) > 2]
+    stems = [wordnet_lemmatizer.lemmatize(w, pos='v') for w in methods]
+    gerunds = [w[:-1] + 'ing' for w in stems if w[-1] == 'e']
+    gerunds +=  [w + 'ing' for w in stems if w[-1] != 'e']
+    methods = list(set(methods + stems + gerunds))
+    return methods
 
 
 # print extract_cooking_methods(['Season lamb shoulder chops with salt and black pepper.',

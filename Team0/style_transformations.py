@@ -8,13 +8,16 @@ to_asian = {
         'tablespoon': [4, 'tablespoon', 'soy sauce']
     },
     'mozerella cheese': {
-        'cup': [1, '', 'poached or soft-boiled egg'],
+        'cup': [1, '', 'poached or soft-boiled egg']
     },
     'cheddar cheese': {
-        'cup': [1, '', 'poached or soft-boiled egg'],
+        'cup': [1, '', 'poached or soft-boiled egg']
     },
     'parmesan cheese': {
-        'cup': [1, '', 'poached or soft-boiled egg'],
+        'cup': [1, '', 'poached or soft-boiled egg']
+    },
+    'cheese': {
+        'cup': [1, '', 'poached or soft-boiled egg']
     },
     'sugar': {
         'tablespoon': [1, 'tablespoon', 'teriyaki sauce'],
@@ -50,17 +53,51 @@ to_asian = {
     },
     'horseradish': ['minced ginger', False],
     'pickles': ['pickled ginger', False],
-    'rosemary': ['basil', True]
+    'rosemary': ['basil', True],
+    'sour cream': ['coconut milk', False],
+    'cream': ['coconut milk', False]
 }
 
-# to_mex = {
+to_mex = {
+    'parsley': ['cilantro', True],
+    'basil': ['cilantro', True],
+    'flour tortillas': ['corn tortillas', True],
+    'bread': {
+        'slice': [1, '', 'corn tortilla'],
+        'slices': [1, '', 'corn tortilla'],
+        'other': 'corn tortillas'
+    },
+    'mushrooms': ['green peppers', False],
+    'parmesan cheese': ['queso fresco', True],
+    'lemon': ['lime', True],
+    'lemon juice': ['lice juice', True],
+    'coriander': ['paprika', True],
+    'turmeric': ['paprika', True],
+    'teriyaki sauce': ['black mole sauce', True],
+    'ginger': ['habanero', True],
+    'ginger root': ['habanero', True],
+    'noodles': {
+        'cup': [1, 'cup', 'rice'],
+        'other': 'rice noodles'
+    },
+    'soy sauce': {
+        'tablespoon': [.25, 'teaspoon', 'salt'],
+        'teaspoon': [.5, 'teaspoon', 'salt']
+    },
+    'olives': ['jalapenos', False],
 
-# }
+    # salsa, corn, beans red peppers
+}
 
-# to_italian = {
+to_veggie = {
+    # all meats
+}
 
-# }
+to_vegan = {
+    'milk': ['coconut milk', True],
+    'cheese': [],
+    'yogurt': [],
+    'sour cream': [],
+    'cream': []
 
-# to_mediterranean = {
-
-# }
+}

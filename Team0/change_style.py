@@ -35,7 +35,6 @@ def change_style(transformations, ingredients, steps):
             if formatted_ingredient is not None:
                 new_ingredients_list.append(formatted_ingredient)
                 steps = [step.replace(i['name'], formatted_ingredient['name']) for step in steps]
-
         else:
             new_ingredients_list.append(i)
 
@@ -45,12 +44,15 @@ def change_style(transformations, ingredients, steps):
 def change_style_to(new_style, ingredients, steps):
     if new_style == 'asian':
         transformations = to_asian
-
-    if not transformations:
+    elif new_style == 'mexican':
+        transformations = to_mex
+    elif new_style == 'vegetarian':
+        transformations = to_veggie
+    elif new_style == 'vegan':
+        transformations = to_vegan
+    else:
         raise ValueError('Transformation parameter not recognized')
-
     return change_style(transformations, ingredients, steps)
-
 
 
 # ingredient format (for reference)

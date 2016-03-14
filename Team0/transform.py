@@ -13,6 +13,7 @@ class Transformer:
 
     def change_style(self, style):
         # Collin
+        # handles: vegetarian, vegan, asian, mexican
         new_ingredients, new_steps = change_style_to(style, self.recipe['ingredients'], self.steps)
         new_recipe = copy.deepcopy(self.recipe)
         new_recipe['ingredients'] = new_ingredients
@@ -34,14 +35,6 @@ class Transformer:
         # Dan
         pass
 
-    def vegetarian(self):
-        # Liam
-        pass
-
-    def vegan(self):
-        # Liam
-        pass
-
     # !!!! READ THIS !!!!
     # All the above methods need to transform and return transformations as tuples:
     # return (recipe, steps)
@@ -58,6 +51,6 @@ class Transformer:
         elif transformation == 'pescatarian':
             return self.pescatarian()
         elif transformation == 'vegetarian':
-            return self.vegetarian()
+            return self.change_style('vegetarian')
         elif transformation == 'vegan':
-            return self.vegan()
+            return self.change_style('vegan')
