@@ -1,7 +1,9 @@
 from nltk import pos_tag, word_tokenize
 from nltk.stem.wordnet import WordNetLemmatizer
+import copy
 
-def extract_cooking_methods(steps, title):
+def extract_cooking_methods(input_steps, title):
+    steps = copy.deepcopy(input_steps)
     steps.append(title)
     tk_steps = [pos_tag(word_tokenize(w.lower())) for w in steps]
 

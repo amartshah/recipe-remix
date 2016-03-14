@@ -49,6 +49,7 @@ def change_style_to(new_style, ingredients, steps):
     elif new_style == 'vegetarian':
         transformations = to_veggie
     elif new_style == 'vegan':
+        to_vegan.update(to_veggie)
         transformations = to_vegan
     else:
         raise ValueError('Transformation parameter not recognized')

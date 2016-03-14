@@ -16,11 +16,11 @@ class Parser:
 
     def parse_html(self):
         parsed = parseHtml(self.url)
-        self.ingredients = parsed["ingredients"]
-        self.steps = parsed["directions"]
-        self.cook_time = parsed["cook time"]
-        self.prep_time = parsed["prep time"]
-        self.name = parsed["name"]
+        self.ingredients = [i.encode('ascii', 'ignore') for i in parsed["ingredients"]]
+        self.steps = [s.encode('ascii', 'ignore') for s in parsed["directions"]]
+        self.cook_time = parsed["cook time"].encode('ascii', 'ignore')
+        self.prep_time = parsed["prep time"].encode('ascii', 'ignore')
+        self.name = parsed["name"].encode('ascii', 'ignore')
 
     def separate_ingredients(self):
         return findIngredients(self.ingredients)
@@ -50,6 +50,7 @@ class Parser:
                 "ingredients": self.separate_ingredients(),
                 "primary cooking method": self.get_primary_cooking_method(),
                 "cooking methods": self.get_cooking_methods(),
-                "cooking tools": self.get_tools()
+                "cooking tools": self.get_tools(),
+                "name": self.name
             }
         return self.full_recipe

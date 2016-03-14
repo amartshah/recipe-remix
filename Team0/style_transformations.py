@@ -29,7 +29,7 @@ to_asian = {
 
     'cilantro': ['basil', True],
     'parsley': ['basil', True],
-    'milk': ['coconut milk', True],
+    'milk': ['coconut milk', False],
 
     'olive oil': ['sesame oil', False],
     'vegetable oil': ['sesame oil', False],
@@ -85,31 +85,50 @@ to_mex = {
         'teaspoon': [.5, 'teaspoon', 'salt']
     },
     'olives': ['jalapenos', False],
-    'worcestor sauce': ['salsa verde', False],
-    # salsa, corn, beans red peppers
+    'worcestor sauce': ['cholula sauce', False],
+    'sauce': ['salsa', False],
+    # corn, beans red peppers
 }
 
 to_veggie = {
-    'pork': ['red peppers', False],
-    'chops': [],
-    'loin': [],
-    'ribs': [],
+    'pork': ['red peppers', True],
+    'chops': ['red bell peppers', False],
+    'loin': ['portabello mushroom', False],
+    'ribs': ['portabello mushroom', False],
 
-    'beef': ['black beans', False],
-    'ground beef': ['black beans', False],
+    'beef': ['black beans', True],
+    'ground beef': ['black beans', True],
     'meat': ['mushrooms', False],
 
-    'chicken': [],
-    'breasts': [],
-    'chicken breasts': [],
+    'chicken': ['tofu', True],
+    'breasts': ['tofu', False],
+    'chicken breasts': ['tofu', False],
+    'wings': ['tofu', False],
+    'thighs': ['tofu', False],
 
-    'tripe': []
+    'tripe': ['tofu strips', False],
+    'sausage': ['tofu', True],
+    'dog': ['tofu', True],
+    'hot dog': ['tofu', True],
+    'bratwurst': ['tofu', True],
+    'bacon': ['mushrooms', False],
 }
 
 to_vegan = {
-    'milk': ['coconut milk', True],
-    'cheese': [],
-    'yogurt': [],
-    'sour cream': [],
-    'cream': []
+    'milk': ['coconut milk', False],
+    'cheese': ['applesauce', False],
+    'yogurt': ['almond milk', True],
+    'sour cream': ['almond milk', True],
+    'cream': ['almond milk', True],
+    'egg': {
+        '': [.5, '', 'mashed up bananas'],
+        'other': '1 mashed up banana'
+    },
+    'eggs': {
+        '': [.5, '', 'mashed up bananas'],
+        'other': '1 mashed up banana'
+    },
+    'bread': ['vegan bread', True],
+    'buns': ['vegan buns', True],
+    'bun': ['vegan bun', True]
 }

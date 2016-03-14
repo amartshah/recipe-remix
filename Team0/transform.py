@@ -4,6 +4,7 @@ import copy
 class Transformer:
     def __init__(self, recipe, steps):
         self.recipe = recipe # see Recipes folder for format
+        print steps
         self.steps = steps
         # ["Stir the butter and flour together in a bowl", "cook it for 15 minutes", "etc"]
 
@@ -40,6 +41,8 @@ class Transformer:
     # return (recipe, steps)
 
     def transform(self, transformation):
+        self.recipe['name'] = (transformation + ' ' + self.recipe['name']).replace('_', ' ').title()
+
         if transformation == 'asian':
             return self.change_style('asian')
         elif transformation == 'mexican':
