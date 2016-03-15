@@ -6,11 +6,9 @@ import sys
 import re
 import urllib
 
-#All subs are pulled from national heart, lung, and blood institute
+#All subs are pulled from national heart, lung, and blood institute you can google and find it
 #The high versions simply just get rid of useless words
 #low versions are much better than high versions
-
-nonEssentialHighCal = [""]
 
 lowCalStopwords = ["whole milk", "alfredo sauce","oil" ,"custard", "evaporated whole milk","ice cream", "yogurt", "beef","guacamole", "refried beans", "cheese", "mayonnaise", "whipping cream", "sour cream", "cream cheese", "cheese", "mozzarella cheese" ,"bacon", "sausage", "ground beef", "eggs", "chorizo", "margarine", "butter", "salad dressing" ]
 
