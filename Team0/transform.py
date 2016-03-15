@@ -1,5 +1,6 @@
 from change_style import change_style_to
 from SodiumAndCal import High2LowCal, High2LowSodium, Low2HighSodium, LowCal2High
+from lowfatpesc import lowFat, hiFat, fromPescatarian, toPescatarian
 import copy
 
 class Transformer:
@@ -9,12 +10,7 @@ class Transformer:
         self.steps = steps
         # ["Stir the butter and flour together in a bowl", "cook it for 15 minutes", "etc"]
 
-    # !!!! READ THIS !!!!
-    # All the below methods need to transform and return transformations as tuples:
-    # return (recipe, steps)
-
     def change_style(self, style):
-        # Collin
         # handles: vegetarian, vegan, asian, mexican
         new_ingredients, new_steps = change_style_to(style, self.recipe['ingredients'], self.steps)
         new_recipe = copy.deepcopy(self.recipe)
@@ -37,24 +33,19 @@ class Transformer:
         return (self.recipe, self.steps)
 
     def low_fat(self):
-        # Dan
-        pass
+        return (lowFat(self.recipe), self.steps)
 
     def high_fat(self):
-        # Dan
-        pass
+        return (hiFat(self.recipe), self.steps)
 
-    def pescatarian(self):
-        # Dan
-        pass
+    def to_pescatarian(self):
+        return (toPescatarian(self.recipe), self.steps)
 
-    # !!!! READ THIS !!!!
-    # All the above methods need to transform and return transformations as tuples:
-    # return (recipe, steps)
+    def from_pescatarian(self):
+        return (fromPescatarian(self.recipe), self.steps)
 
     def transform(self, transformation):
         self.recipe['name'] = (transformation + ' ' + self.recipe['name']).replace('_', ' ').title()
-
         if transformation == 'asian':
             return self.change_style('asian')
         elif transformation == 'mexican':
@@ -75,5 +66,7 @@ class Transformer:
             return self.low_cal()
         elif transformation == 'high_cal':
             return self.high_cal()
+        elif transformation == 'non_pescatarian':
+            return self.from_pescatarian()
         elif transformation == 'pescatarian':
-            return self.pescatarian()
+            return self.to_pescatarian()

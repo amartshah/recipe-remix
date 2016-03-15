@@ -1,10 +1,17 @@
 from style_transformations import *
 import copy
 
+def removeNones(i):
+    keys = ['descriptor', 'preparation', 'prep-description']
+    for k in keys:
+        if i[k] == 'none' or i[k] == None:
+            i[k] = ''
+    return i
+
 def change_style(transformations, ingredients, steps):
     new_ingredients_list = []
     for i in ingredients:
-        new_ingredient = transformations.get(i['name'])
+        new_ingredient = transformations.get(i['name'].lower())
         if new_ingredient:
             formatted_ingredient = None
             if isinstance(new_ingredient, list):
@@ -38,6 +45,7 @@ def change_style(transformations, ingredients, steps):
         else:
             new_ingredients_list.append(i)
 
+    new_ingredients_list = [removeNones(i) for i in new_ingredients_list]
     return [new_ingredients_list, steps]
 
 
