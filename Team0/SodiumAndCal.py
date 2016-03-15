@@ -7,13 +7,17 @@ import re
 import urllib
 
 #All subs are pulled from national heart, lung, and blood institute
+#The high versions simply just get rid of useless words
+#low versions are much better than high versions
 
 nonEssentialHighCal = [""]
 
-lowCalStopwords = ["whole milk", "evaporated whole milk","ice cream", "yogurt", "beef","guacamole", "refried beans", "cheese", "mayonnaise", "whipping cream", "sour cream", "cream cheese", "cheese", "mozzarella cheese" ,"bacon", "sausage", "ground beef", "eggs", "chorizo", "margarine", "butter", "salad dressing" ]
+lowCalStopwords = ["whole milk", "alfredo sauce","oil" ,"custard", "evaporated whole milk","ice cream", "yogurt", "beef","guacamole", "refried beans", "cheese", "mayonnaise", "whipping cream", "sour cream", "cream cheese", "cheese", "mozzarella cheese" ,"bacon", "sausage", "ground beef", "eggs", "chorizo", "margarine", "butter", "salad dressing" ]
 
 lowCalSubsNames = {
 	"whole milk": "milk",
+	"oil": "lemon juice",
+	"alfredo sauce": "tomato sauce",	
 	"evaporated whole milk": "milk",
 	"ice cream": "sorbet",
 	"refried beans": "black beans",
@@ -22,6 +26,7 @@ lowCalSubsNames = {
 	"sour cream": "yogurt",
 	"cream cheese": "cream cheese",
 	"cheese": "cheese",
+	"custard": "pudding",	
 	"mozzarella cheese": "mozzarella cheese",
 	"bacon": "ham",
 	"sausage": "ham",
@@ -32,12 +37,14 @@ lowCalSubsNames = {
 	"chorizo": "sausage",
 	"margarine": "margarine",
 	"fudge sauce": "chocolate syrup",
-	"butter": 'butter2.0',
+	"butter": 'butter',
 	"salad dressing": "salad dressing",
 }
 
 lowCalSubsDescriptor = {
 	"whole milk": "skim",
+	"oil": "low-calorie",
+	"alfredo sauce": "low-calorie",	
 	"evaporated whole milk": "skim",
 	"ice cream": "fat-free",
 	"yogurt": "low calorie",
@@ -47,6 +54,7 @@ lowCalSubsDescriptor = {
 	"sour cream": "plain low-fat",
 	"cream cheese": "light",
 	"cheese": "fat-free",
+	"custard": "low-fat",	
 	"mozzarella cheese": "low-moisture",
 	"bacon":"lean",
 	"sausage":"lean",
@@ -69,12 +77,14 @@ lowCalGoodwords = ["reduced-calorie"]
 
 
 
-#lowCalGood = ["quinoa", "peanut butter", "avovados", "nuts", "olive oil", "bananas"]
-lowSodiumStopwords = ["bacon", "canned fruit", "salt", "broth", "buttermilk", "cheese", "canned vegetables"]
+lowSodiumStopwords = ["bacon", "bread", "mayonnaise", "soy sauce", "canned fruit", "salt", "broth", "buttermilk", "cheese", "canned vegetables"]
 lowSodiumSubNames = {
 	"bacon": "bacon",
 	"canned fruit": "fruit",
+	"bread": "tortilla",
 	"salt": "lemon juice",
+	"soy sauce": "molasses",
+	"mayonnaise": "yogurt",
 	"broth": "broth",
 	"buttermilk": "milk",
 	"cheese": "cheese",
@@ -84,7 +94,10 @@ lowSodiumSubNames = {
 lowSodiumSubDes = {
 	"bacon": "turkey",
 	"canned fruit": "fresh",
+	"bread": "corn",
+	"mayonnaise": "non-fat",
 	"salt": "",
+	"soy sauce": "",
 	"broth": "reduced sodium",
 	"buttermilk": "",
 	"cheese":"low sodium",
@@ -96,7 +109,25 @@ lowSodiumBadwords = ["salted", "canned", "cured", "frozen"]
 lowSodiumGoodwords= ["fresh"]
 
 
-def High2LowCal(dct):
+def High2LowCal(dct, steps):
+	steps1 = steps
+	splits = []
+	for a in range(0, len(steps1)):
+		splits.append(steps1[a].split())
+	for stopword in lowCalStopwords:
+		for item in range(0, len(splits)):
+			for z in range(0, len(splits[item])):
+				if stopword == splits[item][z]:
+					splits[item][z] = lowCalSubsNames[stopword]
+				if stopword + ';' == splits[item][z]:
+					splits[item][z] = lowCalSubsNames[stopword]
+				if stopword + '.' == splits[item][z]:
+					splits[item][z] = lowCalSubsNames[stopword]
+				if stopword + ',' == splits[item][z]:
+					splits[item][z] = lowCalSubsNames[stopword]
+	for a in range(0, len(splits)):
+		splits[a] = " ".join(splits[a])
+	steps1 = splits
 	tranrep = dct
 	ingredients_current = tranrep["ingredients"]
 	for ing in ingredients_current:
@@ -111,13 +142,11 @@ def High2LowCal(dct):
 			if badword in ing['descriptor']:
 				ing['descriptor'] = ing['descriptor'].replace(badword, lowCalGoodwords[0])
 			if badword in ing['preparation']:
-				#print ing['preparation']
 				ing['preparation'] = ing['preparation'].replace(badword, lowCalGoodwords[0])
-				#print ing['preparation']
 			if badword in ing['prep-description']:
 				ing['prep-description'] = ing['prep-description'].replace(badword, lowCalGoodwords[0])
 	#print tranrep
-	return tranrep
+	return (tranrep, steps1)
 
 def LowCal2High(dct):
 	tranrep = dct
@@ -132,7 +161,25 @@ def LowCal2High(dct):
 	return tranrep
 
 
-def High2LowSodium(dct):
+def High2LowSodium(dct, steps):
+	steps1 = steps
+	splits = []
+	for a in range(0, len(steps1)):
+		splits.append(steps1[a].split())
+	for stopword in lowSodiumStopwords:
+		for item in range(0, len(splits)):
+			for z in range(0, len(splits[item])):
+				if stopword == splits[item][z]:
+					splits[item][z] = lowSodiumSubNames[stopword]
+				if stopword + ';' == splits[item][z]:
+					splits[item][z] = lowSodiumSubNames[stopword]
+				if stopword + '.' == splits[item][z]:
+					splits[item][z] = lowSodiumSubNames[stopword]
+				if stopword + ',' == splits[item][z]:
+					splits[item][z] = lowSodiumSubNames[stopword]
+	for a in range(0, len(splits)):
+		splits[a] = " ".join(splits[a])
+	steps1 = splits
 	tranrep = dct
 	ingredients_current = tranrep["ingredients"]
 	for ing in ingredients_current:
@@ -151,7 +198,7 @@ def High2LowSodium(dct):
 			if badword in ing['prep-description']:
 				ing['prep-description'] = ing['prep-description'].replace(badword, lowSodiumGoodwords[0])
 	#print tranrep
-	return tranrep
+	return (tranrep, steps1)
 
 def Low2HighSodium(dct):
 	tranrep = dct
