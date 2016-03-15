@@ -36,7 +36,7 @@ function displayRecipe(recipe, steps) {
   recipeToDisplay += toolHTML+'</p>';
 
   var methods = recipe['cooking methods'];
-  var methodHTML = '<p><b>Methods:</b> ';
+  var methodHTML = '<p><b>Cooking Methods:</b> ';
 
   methods.forEach(function(m){
     if (m == recipe['primary cooking method']){

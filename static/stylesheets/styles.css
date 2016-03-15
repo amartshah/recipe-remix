@@ -1,32 +1,52 @@
-body {
+html, body {
      font-family: Oswald;
      color: brown;
-     margin: 0 0 100px 0;
+     margin: 0;
+     padding: 0;
+     height: 100%;
 }
 
-.footer {
-    position: fixed;
+#footer {
+    position: absolute;
     bottom: 0px;
+    left: 0px;
     margin: 0px;
-    padding: 10px;
+    display: flex;
+    flex-direction: vertical;
     z-index: 2;
-    background: white;
+    background: brown;
     width: 100%;
 }
 
-.panel {
-    padding: 10px;
-    overflow: hidden;
-}
-
-.dark {
-    background: brown;
-    color: white;
+#footer > p {
+    margin-left: 10px;
 }
 
 #content {
     max-width: 500px;
     margin: 0px auto;
+    padding-bottom: 100px;
+    overflow: hidden;
+}
+
+#wrapper {
+    position: relative;
+    min-height: 100%;
+    /* padding: 0; */
+    /* margin: 0; */
+}
+
+.panel {
+    padding: 10px;
+    overflow: hidden;
+    max-width: 500px;
+    display: block;
+    margin: 0px auto;
+}
+
+.dark {
+    background: brown;
+    color: white;
 }
 
 .text-field {
@@ -50,6 +70,7 @@ button {
     margin: 10px auto 0px auto;
     color: white;
     display: block;
+    font-size: 20px;
 }
 
 button:hover {
