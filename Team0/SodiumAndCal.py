@@ -39,7 +39,7 @@ lowCalSubsNames = {
 lowCalSubsDescriptor = {
 	"whole milk": "skim",
 	"evaporated whole milk": "skim",
-	"ice cream": "fat-free",				
+	"ice cream": "fat-free",
 	"yogurt": "low calorie",
 	"refried beans": "low calorie",
 	"mayonnaise": "non-fat",
@@ -94,56 +94,6 @@ lowSodiumSubDes = {
 highSodiumBadwords = ["fresh", "unsalted", "reduced sodium", "low sodium"]
 lowSodiumBadwords = ["salted", "canned", "cured", "frozen"]
 lowSodiumGoodwords= ["fresh"]
-
-
-
-# #take this out later
-# testRecipe = dict()
-# testRecipe = {
-
-# "ingredients":
-# [{
-# 									"name":	"light salt",
-# 									"quantity":	1,
-# 									"measurement":	"pinch",
-# 									"descriptor":	"unsalted",
-# 									"preparation":	"",
-# 									"prep-description":	"none"
-# 								},
-# 								{
-# 									"name":	"olive	oil",
-# 									"quantity":	0.75,
-# 									"measurement":	"teaspoon",
-# 									"descriptor":	"extra-virgin",
-# 									"preparation":	"none",
-# 									"prep-description":	"none"
-# 								},
-# 								{
-# 												"name":	"parsley",
-# 												"quantity":	1,
-# 												"measurement":	"cup",
-# 												"descriptor":	"fresh",
-# 												"preparation":	"chopped",
-# "prep-description":	"finely"
-# 								}],
-# 				"primary cooking	method":	"primary	cooking	method	here",
-# 				"cooking methods":	["chop",	"stir",	"boil",	"simmer",	"grate", "bake"],
-# 				"cooking tools":	["knife",	"grater",	"dutch	oven"],
-# 				}
-
-
-#----------------------------------------------------------------------------------------
-
-
-#This just makes sure that I didnt make a mistake in commas or something up there
-# def testallkeywords(dct):
-# 	print dct
-
-# testallkeywords(testRecipe)
-
-
-#----------------------------------------------------------
-
 
 
 def High2LowCal(dct):
@@ -216,26 +166,3 @@ def Low2HighSodium(dct):
 	return tranrep
 
 #Low2HighSodium(testRecipe)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

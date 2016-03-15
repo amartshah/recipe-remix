@@ -1,4 +1,5 @@
 from change_style import change_style_to
+from SodiumAndCal import High2LowCal, High2LowSodium, Low2HighSodium, LowCal2High
 import copy
 
 class Transformer:
@@ -21,14 +22,25 @@ class Transformer:
         return (new_recipe, new_steps)
 
     def low_cal(self):
-        # Amar
-        pass
+        return High2LowCal(self.recipe)
+
+    def high_cal(self):
+        LowCal2High(self.recipe)
+        return (self.recipe, self.steps)
 
     def low_sodium(self):
-        # Amar
-        pass
+        High2LowSodium(self.recipe)
+        return (self.recipe, self.steps)
+
+    def high_sodium(self):
+        Low2HighSodium(self.recipe)
+        return (self.recipe, self.steps)
 
     def low_fat(self):
+        # Dan
+        pass
+
+    def high_fat(self):
         # Dan
         pass
 
@@ -53,7 +65,15 @@ class Transformer:
             return self.change_style('vegan')
         elif transformation == 'low_sodium':
             return self.low_sodium()
+        elif transformation == 'high_sodium':
+            return self.high_sodium()
         elif transformation == 'low_fat':
             return self.low_fat()
+        elif transformation == 'high_fat':
+            return self.high_fat()
+        elif transformation == 'low_cal':
+            return self.low_cal()
+        elif transformation == 'high_cal':
+            return self.high_cal()
         elif transformation == 'pescatarian':
             return self.pescatarian()
