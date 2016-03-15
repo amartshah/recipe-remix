@@ -18,15 +18,15 @@ class Transformer:
         return (new_recipe, new_steps)
 
     def low_cal(self):
-        return High2LowCal(self.recipe)
+        return High2LowCal(self.recipe, self.steps)
 
     def high_cal(self):
         LowCal2High(self.recipe)
         return (self.recipe, self.steps)
 
     def low_sodium(self):
-        High2LowSodium(self.recipe)
-        return (self.recipe, self.steps)
+        #High2LowSodium(self.recipe, self.steps)
+        return High2LowSodium(self.recipe, self.steps)
 
     def high_sodium(self):
         Low2HighSodium(self.recipe)
